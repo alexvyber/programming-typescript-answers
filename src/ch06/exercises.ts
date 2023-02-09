@@ -19,7 +19,7 @@ b = 2 as number
 // 1c. string and number | string
 
 let c: number | string
-c = 'foo' as string
+c = "foo" as string
 
 /* Yes. string is a subtype of number | string, so it assignable to number | string. */
 
@@ -46,15 +46,15 @@ f = [1] as (number | string)[]
 
 // 1g. {a: true} and {a: boolean}
 
-let g: {a: boolean}
-g = {a: true} as {a: true}
+let g: { a: boolean }
+g = { a: true } as { a: true }
 
 /* Yes. Objects are covariant in their members, so for an object to be assignable to another object, each of its members needs to be <: the type of the other object's members. This object has just one member, a, and its type is the type literal true. true is <: boolean, so the whole object {a: true} is assignable to {a: boolean}. */
 
 // 1h. {a: {b: [string]}} and {a: {b: [number | string]}}
 
-let h: {a: {b: [number | string]}}
-h = {a: {b: ['c']}} as {a: {b: [string]}}
+let h: { a: { b: [number | string] } }
+h = { a: { b: ["c"] } } as { a: { b: [string] } }
 
 /* Yes. Combining the rules from (e) and (g), for a nested object to be assignable to another object, each of its members needs to be <: the other object's members. We repeat this recursively:
 
@@ -67,31 +67,31 @@ Is {a: {b: [string]}} assignable to {a: {b: [number | string]}}? Yes, if:
 // 1i. (a: number) => string and (b: number) => string
 
 let i: (a: number) => string
-i = ((b: number) => 'c') as (b: number) => string
+i = ((b: number) => "c") as (b: number) => string
 
 /* Yes. For a function to be assignable to another function, each of its parameters should be >: the other function's parameters, and its return type should be <: the other function's return type. number is >: number, and string is <: string, so the function type is assignable. */
 
 // 1j. (a: number) => string and (a: string) => string
 
 let j: (a: string) => string
-j = ((a: number) => 'b') as (a: number) => string
+j = ((a: number) => "b") as (a: number) => string
 
 /* No. For a function to be assignable to another function, each of its parameters should be >: the other function's parameters, and its return type should be <: the other function's return type. number is unrelated to string, so it's not >: string, implying that the function type isn't assignable. */
 
 // 1k. (a: number | string) => string and (a: string) => string
 
 let k: (a: string) => string
-k = ((a: number | string) => 'b') as (a: number | string) => string
+k = ((a: number | string) => "b") as (a: number | string) => string
 
 /* Yes. For a function to be assignable to another function, each of its parameters should be >: the other function's parameters, and its return type should be <: the other function's return type. number | string is a supertype of string, and string is <: string, so the function type is assignable. */
 
 // 1l. E.X (defined in an enum enum E {X = 'X'}) and F.X (defined in an enum enum F {X = 'X'})
 
 enum E {
-  X = 'X'
+  X = "X",
 }
 enum F {
-  X = 'X'
+  X = "X",
 }
 let l: F.X
 l = E.X as E.X
@@ -100,9 +100,9 @@ l = E.X as E.X
 
 // 2. If I have an object type type O = {a: {b: {c: string}}}, what’s the type of keyof O? What about O['a']['b']?
 
-type O = {a: {b: {c: string}}}
+type O = { a: { b: { c: string } } }
 type P = keyof O // 'a'
-type Q = O['a']['b'] // {c: string}
+type Q = O["a"]["b"] // {c: string}
 
 // 3. Write an Exclusive<T, U> type that computes the types that are in either T or U, but not both. For example, Exclusive<1 | 2 | 3, 2 | 3 | 4> should resolve to 1 | 4. Write out step-by-step how the typechecker evaluates Exclusive<1 | 2, 2 | 4>.
 
@@ -124,13 +124,13 @@ type U = Exclusive<1 | 2, 2 | 4>
 
 let globalCache = {
   get(key: string) {
-    return 'user'
-  }
+    return "user"
+  },
 }
 
 let userId = fetchUser()
 userId.toUpperCase()
 
 function fetchUser() {
-  return globalCache.get('userId')
+  return globalCache.get("userId")
 }

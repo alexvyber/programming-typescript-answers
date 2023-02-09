@@ -6,16 +6,16 @@ export default null // Force module mode
 let a = 1042 // number
 
 // 1b
-let b = 'apples and oranges' // string
+let b = "apples and oranges" // string
 
 // 1c
-const c = 'pineapples' // 'pineapples'
+const c = "pineapples" // 'pineapples'
 
 // 1d
 let d = [true, true, false] // boolean[]
 
 // 1e
-let e = {type: 'ficus'} // {type: string}
+let e = { type: "ficus" } // {type: string}
 
 // 1f
 let f = [1, false] // (number | boolean)[]
@@ -39,7 +39,7 @@ i's type is the type literal 3. The type of 4 is the type literal 4, which is no
 // 2b
 let j = [1, 2, 3]
 j.push(4)
-j.push('5') // Error TS2345: Argument of type '"5"' is not
+j.push("5") // Error TS2345: Argument of type '"5"' is not
 // assignable to parameter of type 'number'.
 
 /*

@@ -23,39 +23,39 @@ type Shoe = {
 }
 
 class BalletFlat implements Shoe {
-  purpose = 'dancing'
+  purpose = "dancing"
 }
 
 class Boot implements Shoe {
-  purpose = 'woodcutting'
+  purpose = "woodcutting"
 }
 
 class Sneaker implements Shoe {
-  purpose = 'walking'
+  purpose = "walking"
 }
 
 type ShoeCreator = {
-  create(type: 'balletFlat'): BalletFlat
-  create(type: 'boot'): Boot
-  create(type: 'sneaker'): Sneaker
+  create(type: "balletFlat"): BalletFlat
+  create(type: "boot"): Boot
+  create(type: "sneaker"): Sneaker
 }
 
 let Shoe: ShoeCreator = {
-  create(type: 'balletFlat' | 'boot' | 'sneaker'): Shoe {
+  create(type: "balletFlat" | "boot" | "sneaker"): Shoe {
     switch (type) {
-      case 'balletFlat':
+      case "balletFlat":
         return new BalletFlat()
-      case 'boot':
+      case "boot":
         return new Boot()
-      case 'sneaker':
+      case "sneaker":
         return new Sneaker()
     }
-  }
+  },
 }
 
-Shoe.create('balletFlat') // BalletFlat
-Shoe.create('boot') // Boot
-Shoe.create('sneaker') // Sneaker
+Shoe.create("balletFlat") // BalletFlat
+Shoe.create("boot") // Boot
+Shoe.create("sneaker") // Sneaker
 
 // 4. [Hard] As an exercise, think about how you might design a typesafe builder pattern. Extend the Builder pattern Builder Pattern example from earlier in this chapter to:
 
@@ -63,10 +63,10 @@ Shoe.create('sneaker') // Sneaker
 
 class RequestBuilder {
   protected data: object | null = null
-  protected method: 'get' | 'post' | null = null
+  protected method: "get" | "post" | null = null
   protected url: string | null = null
 
-  setMethod(method: 'get' | 'post'): RequestBuilderWithMethod {
+  setMethod(method: "get" | "post"): RequestBuilderWithMethod {
     return new RequestBuilderWithMethod().setMethod(method).setData(this.data)
   }
   setData(data: object | null): this {
@@ -76,7 +76,7 @@ class RequestBuilder {
 }
 
 class RequestBuilderWithMethod extends RequestBuilder {
-  setMethod(method: 'get' | 'post' | null): this {
+  setMethod(method: "get" | "post" | null): this {
     this.method = method
     return this
   }
@@ -98,11 +98,7 @@ class RequestBuilderWithMethodAndURL extends RequestBuilderWithMethod {
   }
 }
 
-new RequestBuilder()
-  .setMethod('get')
-  .setData({})
-  .setURL('foo.com')
-  .send()
+new RequestBuilder().setMethod("get").setData({}).setURL("foo.com").send()
 
 // 4b. [Harder] How would you change your design if you wanted to make this guarantee, but still let people call methods in any order?
 
@@ -110,25 +106,25 @@ new RequestBuilder()
 
 interface BuildableRequest {
   data?: object
-  method: 'get' | 'post'
+  method: "get" | "post"
   url: string
 }
 
 class RequestBuilder2 {
   data?: object
-  method?: 'get' | 'post'
+  method?: "get" | "post"
   url?: string
 
-  setData(data: object): this & Pick<BuildableRequest, 'data'> {
-    return Object.assign(this, {data})
+  setData(data: object): this & Pick<BuildableRequest, "data"> {
+    return Object.assign(this, { data })
   }
 
-  setMethod(method: 'get' | 'post'): this & Pick<BuildableRequest, 'method'> {
-    return Object.assign(this, {method})
+  setMethod(method: "get" | "post"): this & Pick<BuildableRequest, "method"> {
+    return Object.assign(this, { method })
   }
 
-  setURL(url: string): this & Pick<BuildableRequest, 'url'> {
-    return Object.assign(this, {url})
+  setURL(url: string): this & Pick<BuildableRequest, "url"> {
+    return Object.assign(this, { url })
   }
 
   build(this: BuildableRequest) {
@@ -138,6 +134,6 @@ class RequestBuilder2 {
 
 new RequestBuilder2()
   .setData({})
-  .setMethod('post') // Try removing me!
-  .setURL('bar') // Try removing me!
+  .setMethod("post") // Try removing me!
+  .setURL("bar") // Try removing me!
   .build()

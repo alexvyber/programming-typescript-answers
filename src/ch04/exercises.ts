@@ -31,7 +31,7 @@ type Reserve = {
 let reserve: Reserve = (
   fromOrDestination: Date | string,
   toOrDestination?: Date | string,
-  destination?: string
+  destination?: string,
 ) => {
   if (
     fromOrDestination instanceof Date &&
@@ -41,10 +41,10 @@ let reserve: Reserve = (
     // Book a one-way trip
   } else if (
     fromOrDestination instanceof Date &&
-    typeof toOrDestination === 'string'
+    typeof toOrDestination === "string"
   ) {
     // Book a round trip
-  } else if (typeof fromOrDestination === 'string') {
+  } else if (typeof fromOrDestination === "string") {
     // Book a trip right away
   }
 }
@@ -62,16 +62,16 @@ function call<T extends [unknown, string, ...unknown[]], R>(
 }
 
 function fill(length: number, value: string): string[] {
-  return Array.from({length}, () => value)
+  return Array.from({ length }, () => value)
 }
 
-call(fill, 10, 'a') // string[]
+call(fill, 10, "a") // string[]
 
 // 5. Implement a small typesafe assertion library, is. Start by sketching out
 // your types. When you’re done, I should be able to use it like this:
 
 // Compare a string and a string
-is('string', 'otherstring') // false
+is("string", "otherstring") // false
 
 // Compare a boolean and a boolean
 is(true, false) // false
@@ -80,7 +80,7 @@ is(true, false) // false
 is(42, 42) // true
 
 // Comparing two different types should give a compile-time error
-is(10, 'foo') // Error TS2345: Argument of type '"foo"' is not assignable
+is(10, "foo") // Error TS2345: Argument of type '"foo"' is not assignable
 // to parameter of type 'number'.
 
 // [Hard] I should be able to pass any number of arguments
